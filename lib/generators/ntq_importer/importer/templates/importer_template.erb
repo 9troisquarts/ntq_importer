@@ -1,0 +1,35 @@
+module NtqImporters
+
+  class <%= "#{@name.camelize}Importer" %> < ApplicationImporter
+
+    def initialize(file)
+      super
+      @headers_schema = [
+        {
+          :name => "",
+          :sheet_name => nil,
+          :required => false,
+          :data_direction => HEADER_DATA_DIRECTION_BOTTOM,
+          :data_type => HEADER_DATA_TYPE_ANY,
+          :data_required => false,
+          :line_index => nil,
+          :column_index => nil
+        }
+      ]
+      # your code here if you need some extras
+    end
+
+    def analyze
+      super
+      # your code here if you need some extras
+    end
+
+    def import
+      super
+      # your code here to manage import data
+      
+    end
+
+  end
+
+end
