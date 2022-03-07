@@ -79,9 +79,9 @@ module NtqImporter
           found_headers = find_headers(header_schema, @parsed_data)
           if found_headers.length == 0
             if header_schema[:required]
-              log = create_log("Missing required header: #{header_schema[:name]}", LOG_TYPE_ERROR) 
+              log = create_log("missing_required_header", LOG_TYPE_ERROR, header_schema[:name]) 
             else
-              log = create_log("Missing required header: #{header_schema[:name]}", LOG_TYPE_WARNING) 
+              log = create_log("missing_required_header", LOG_TYPE_WARNING, header_schema[:name]) 
             end
             @logs.push(log) if log
           else
@@ -125,11 +125,12 @@ module NtqImporter
       @parser ||= NtqImporter::Parser::Base.new(@file).parser
     end
 
-    def create_log(message, type = LOG_TYPE_INFO)
+    def create_log(message, type = LOG_TYPE_INFO, data = nil)
       return nil if !VALID_LOG_TYPES.detect{|log_type| log_type == type}
       log = {
         type: type,
-        message: message.to_s
+        message: message.to_s,
+        data: data
       }
       return log
     end
