@@ -228,7 +228,7 @@ module NtqImporter
         log = create_log("missing_required_data", LOG_TYPE_ERROR)
         logs.push(log)
       end
-      if header_schema[:data_type] == HEADER_DATA_TYPE_NUMERIC
+      if (header_schema[:data_required] && header_schema[:data_type] == HEADER_DATA_TYPE_NUMERIC)
         if !is_number?(data_content)
           log = create_log("wrong_data_type", LOG_TYPE_ERROR)
           logs.push(log)
