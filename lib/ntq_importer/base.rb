@@ -138,7 +138,7 @@ module NtqImporter
     def find_headers(header_schema, parsed_data)
       found_headers = []  
       if header_schema[:sheet_name]
-        if header_schema[:sheet_name].class == "Regexp"
+        if header_schema[:sheet_name].is_a? Regexp
           sheet_match = parsed_data[:sheets].detect{|s| s[:name].match(header_schema[:sheet_name]) }
           sheet = sheet_match[0] if sheet_match
         else
@@ -157,7 +157,7 @@ module NtqImporter
           if header_schema[:column_index]
             next unless column_index == header_schema[:column_index]
           end
-          if header_schema[:name].class == "Regexp"
+          if header_schema[:name].is_a? Regexp
             header_match = header_schema[:name].match(column)
           else
             header_found = header_schema[:name] == column
