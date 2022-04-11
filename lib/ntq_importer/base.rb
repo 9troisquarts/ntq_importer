@@ -79,9 +79,9 @@ module NtqImporter
           found_headers = find_headers(header_schema, @parsed_data)
           if found_headers.length == 0
             if header_schema[:required]
-              log = create_log("missing_required_header", LOG_TYPE_ERROR, header_schema[:name]) 
+              log = create_log("missing_required_header", LOG_TYPE_ERROR, header_schema[:name], true) 
             else
-              log = create_log("missing_required_header", LOG_TYPE_WARNING, header_schema[:name]) 
+              log = create_log("missing_required_header", LOG_TYPE_WARNING, header_schema[:name], true) 
             end
             @logs.push(log) if log
           else
@@ -110,7 +110,7 @@ module NtqImporter
         }
         return @analyzed_data
       rescue
-        log = create_log(e, LOG_TYPE_ERROR)
+        log = create_log(e, LOG_TYPE_ERROR, nil, true)
         @logs.push(log) if log
         @status = STATUS_TYPE_ANALYZED_WITH_ERRORS
       end
@@ -125,7 +125,7 @@ module NtqImporter
       @parser ||= NtqImporter::Parser::Base.new(@file).parser
     end
 
-    def create_log(message, type = LOG_TYPE_INFO, data = nil)
+    def create_log(message, type = LOG_TYPE_INFO, data = nil, i18n = false)
       return nil if !VALID_LOG_TYPES.detect{|log_type| log_type == type}
       log = {
         type: type,
@@ -225,12 +225,12 @@ module NtqImporter
     def check_data_content_requirements(data_content, header_schema)
       logs = []
       if (header_schema[:data_required] && (!data_content || data_content == ""))
-        log = create_log("missing_required_data", LOG_TYPE_ERROR)
+        log = create_log("missing_required_data", LOG_TYPE_ERROR, nil, true)
         logs.push(log)
       end
       if (header_schema[:data_required] && header_schema[:data_type] == HEADER_DATA_TYPE_NUMERIC)
         if !is_number?(data_content)
-          log = create_log("wrong_data_type", LOG_TYPE_ERROR)
+          log = create_log("wrong_data_type", LOG_TYPE_ERROR, nil, true)
           logs.push(log)
         end
       end
