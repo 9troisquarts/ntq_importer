@@ -130,7 +130,8 @@ module NtqImporter
       log = {
         type: type,
         message: message.to_s,
-        data: data
+        data: data,
+        i18n: i18n
       }
       return log
     end
