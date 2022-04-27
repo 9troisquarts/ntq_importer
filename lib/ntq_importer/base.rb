@@ -48,8 +48,8 @@ module NtqImporter
 
     attr_accessor :status, :file, :parsed_data, :analyzed_data, :logs, :headers_schema
 
-    def initialize(file)
-      @file = file
+    def initialize(import)
+      @file = import.file
       @parsed_data = nil
       @analyzed_data = nil
       @status = STATUS_TYPE_INITIALIZED
