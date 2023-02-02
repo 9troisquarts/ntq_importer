@@ -109,7 +109,7 @@ module NtqImporter
           headers: filled_headers,
         }
         return @analyzed_data
-      rescue
+      rescue => e
         log = create_log(e, LOG_TYPE_ERROR, nil, true)
         @logs.push(log) if log
         @status = STATUS_TYPE_ANALYZED_WITH_ERRORS
