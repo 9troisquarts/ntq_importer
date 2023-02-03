@@ -20,7 +20,9 @@ module NtqImporter
         end
         wb_sheets = []
         wb.each_with_pagename do |name, sheet|
+          next if sheet.first_row.nil?
           lines = []
+          
           sheet.each do |line|
             lines.push(line)
           end
