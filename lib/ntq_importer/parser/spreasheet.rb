@@ -19,7 +19,7 @@ module NtqImporter
           wb = Roo::Excel.new(@file_path, file_warning: :ignore)
         end
         wb_sheets = []
-        wb.each_with_pagename do |name, sheet|
+        wb.each_with_pagename.each do |name, sheet|
           next if sheet.first_row.nil?
           lines = []
           
